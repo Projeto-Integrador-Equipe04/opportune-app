@@ -8,7 +8,7 @@ function Planos() {
         id: 0,
         nome: '',
         descricao: '',
-        status: 'fechada' as StatusPlano, 
+        status: StatusPlano.FECHADA, // Usando o enum StatusPlano
         preco: '',
         data: ''
     });
@@ -18,7 +18,7 @@ function Planos() {
     async function handleAtualizarStatus(novoStatus: StatusPlano) {
         const token = localStorage.getItem("token");
 
-   
+    
         if (!token) {
             ToastAlerta("Token não encontrado", "erro");
             return;
@@ -38,7 +38,7 @@ function Planos() {
         } catch (error) {
             ToastAlerta("Erro ao atualizar o status", "erro");
         } finally {
-            setLoading(false);
+            setLoading(false); 
         }
     }
 
@@ -49,7 +49,7 @@ function Planos() {
             <p>Status atual: {plano.status}</p>
             <button 
                 onClick={() => handleAtualizarStatus(StatusPlano.ABERTA)} 
-                disabled={loading} 
+                disabled={loading}
             >
                 Abrir
             </button>
