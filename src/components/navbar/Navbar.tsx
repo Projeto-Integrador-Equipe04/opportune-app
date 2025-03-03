@@ -6,7 +6,7 @@ export default function Navbar(){
 
     return(
         <>
-            <nav className="fixed -z-1 inset-y-0 left-0 bg-[#EEF6F5] nav">
+            <nav className="fixed z-[9999] inset-y-0 left-0 bg-[#EEF6F5] nav">
                 <div className="h-full flex flex-col justify-between items-center py-8 px-3">
                     <Link to={""} className="flex items-center gap-1">
                         <img src="./public/icons/eye.svg" className="w-8"/>
