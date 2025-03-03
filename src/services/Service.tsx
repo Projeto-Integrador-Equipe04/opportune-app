@@ -1,4 +1,6 @@
 import axios from "axios";
+import { StatusPlano } from "../types/PlanoTypes";
+
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -35,7 +37,7 @@ export const deletar = async (url: string, header: Object) => {
 
 export const atualizarStatusPlano = async (
     idPlano: number, 
-    status: string,  // novo status do plano (aberta, fechada e perdida)
+    status: StatusPlano,  // novo status do plano (aberta, fechada e perdida)
     setDados: Function, 
     header: Object 
 ) => {
