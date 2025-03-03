@@ -26,7 +26,7 @@ const Dashboard = () => {
       </aside>
 
       <main className="flex-1 flex flex-col">
-        <header className="fixed top-0 left-20 w-[calc(100%-5rem)] h-[101px] bg-[#006056] text-white flex justify-between items-center px-6">
+      <header className="absolute  top-0 left-20 w-[calc(100%-5rem)] h-[101px] bg-[#006056] text-white flex justify-between items-center px-6">
           <h1 className="text-4xl font-semibold font-serif">Dashboard</h1>
           <span className="cursor-pointer text-2xl font-serif hover:not-focus:bg-teal-100 transform rounded-md py-2 px-2 hover:text-[#006056] font-semibold">
             {usuario}

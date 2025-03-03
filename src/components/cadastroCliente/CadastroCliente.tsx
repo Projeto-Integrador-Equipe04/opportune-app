@@ -43,7 +43,7 @@ const CadastroCliente = () => {
   };
 
   const handleBack = () => {
-    navigate("/"); 
+    navigate("/dashboard"); 
   };
 
   return (

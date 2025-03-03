@@ -37,7 +37,7 @@ const CadastroPlano = () => {
   };
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
