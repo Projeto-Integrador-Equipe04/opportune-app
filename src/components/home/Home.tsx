@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 export default function Home(){
     return(
         <>
-        <main className="grid grid-cols-1 lg:grid-cols-2 h-screen">
-            <div className="bg-[url(src/assets/fundooportune.png)] bg-no-repeat bg-cover flex items-center justify-center">
+        <main className="grid grid-cols-1 lg:grid-cols-2 h-screen w-full">
+            <div className="bg-[url(public/image/fundooportune.png)] bg-no-repeat bg-cover flex items-center justify-center">
                 <p>Logo</p>
             </div>
             <div className="flex flex-col justify-center">
@@ -23,7 +23,6 @@ export default function Home(){
                     </div>
                 </div> 
             </div>
-    
         </main>
         </>
     );

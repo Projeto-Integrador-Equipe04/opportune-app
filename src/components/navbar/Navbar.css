@@ -1,0 +1,7 @@
+.item-close{
+    display: none;
+}
+
+.nav:hover .item-close{
+    display: block;
+}
