@@ -117,7 +117,7 @@ const Cadastroempresa = () => {
                         Cadastrar
                     </button>
                 </form>
-                <p>Já tem uma conta? <a href="/loginempresa">Faça login</a></p>
+                <p>Já tem uma conta? <a href="/login">Faça login</a></p>
             </div>
         </div>
     );

@@ -6,6 +6,8 @@ import Navbar from './components/navbar/Navbar'
 import Footer from './components/footer/Footer'
 import Home from './components/home/Home'
 import Dashboard from "./pages/dashboard/Dashboard";
+import Loginempresa from "./pages/loginempresa/Loginempresa";
+import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
 
 export default function App() {
   return (
@@ -18,7 +20,9 @@ export default function App() {
             <Route path="/cadastro-cliente" element={<CadastroCliente />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path="/cadastro-plano" element={<CadastroPlano />} />
-          </Routes>
+            <Route path="/login" element={<Loginempresa />} />
+            <Route path="/cadastroempresa" element={<Cadastroempresa />} />
+            </Routes>
         <Footer />
       </BrowserRouter>
     </>
