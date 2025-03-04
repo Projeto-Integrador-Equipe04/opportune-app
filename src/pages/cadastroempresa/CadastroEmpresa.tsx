@@ -91,7 +91,7 @@ const Cadastroempresa = () => {
                             id="foto-upload"
                             onChange={handleFotoChange}
                             accept="image/*"
-                            style={{ display: 'none' }} // Oculta o input original
+                            style={{ display: 'none' }} 
                         />
                         <label htmlFor="foto-upload" className="custom-file-upload">
                             {foto ? foto.name : 'Selecionar foto'}
