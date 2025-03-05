@@ -9,8 +9,8 @@ import Loginempresa from "./pages/loginempresa/Loginempresa";
 import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
 import Planos from "./pages/plano/Planos";
 import Clientes from "./pages/cliente/Cliente";
-import PerfilEmpresa from "./pages/perfil/PerfilEmpresa";
 import Footer from "./components/footer/Footer";
+import CardPerfilEmpresa from "./pages/perfil/CardPerfil";
 
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
             <Route path="/cadastroempresa" element={<Cadastroempresa />} />
             <Route path="/planos" element={<Planos />} />
             <Route path="/clientes" element={<Clientes/>} />
-            <Route path="/perfil-empresa" element={<PerfilEmpresa />} />
+            <Route path="/perfil-empresa" element={<CardPerfilEmpresa />} />
 
           </Routes>
           <Footer />
