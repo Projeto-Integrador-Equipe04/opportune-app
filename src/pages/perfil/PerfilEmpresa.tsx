@@ -34,7 +34,7 @@ export default function CardPerfilEmpresa() {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex  h-screen w-screen justify-center">
         {!empresaData && (
           <div className="text-center py-4 text-xl">Carregando dados da empresa...</div>
         )}

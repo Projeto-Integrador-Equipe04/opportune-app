@@ -8,7 +8,7 @@ export default function Navbar(){
         <>
             <nav className="fixed z-[9999] inset-y-0 left-0 bg-[#EEF6F5] nav">
                 <div className="h-full flex flex-col justify-between items-center py-8 px-3">
-                    <Link to={""} className="flex items-end">
+                    <Link to={"/dashboard"} className="flex items-end">
                         <img src="./public/icons/eye.svg" className="w-7"/>
                         <h1 className="text-2xl item-close">pportune</h1>
                     </Link>
