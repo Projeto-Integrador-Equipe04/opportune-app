@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import imgHello from "../../assets/imgs/imgHello.png";
 import SecaoPlanos from "../../components/secao-planos/SecaoPlanos";
+import SecaoClientes from "../../components/secao-clientes/SecaoClientes";
 
 const Dashboard = () => {
   const [usuario] = useState("Usuário");
@@ -40,12 +41,7 @@ const Dashboard = () => {
             <img src={imgHello} alt="Hello Image" className="w-56 h-auto object-contain -mr-6" />
           </section>
 
-
-          <section className="mt-6">
-            <h2 className="text-lg font-semibold mb-2 font-serif">Clientes Ativos</h2>
-            <div className="bg-gray-300 h-25 rounded-md shadow-md"></div>
-            <div className="mt-2 bg-gray-300 h-25 rounded-md shadow-md"></div>
-          </section>
+          <SecaoClientes />
 
           <SecaoPlanos />
         </div>

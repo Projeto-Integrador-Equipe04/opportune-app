@@ -7,5 +7,5 @@ export default interface Cliente{
     foto: string,
     email: string,
     senha: string,
-    plano: Plano[]  | null;
+    plano: Plano []  | null;
 }

@@ -9,7 +9,7 @@ export default function SecaoPlanos(){
         try {
             await buscar('/plano', setPlanos, {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzQxMTc0OTA4LCJleHAiOjE3NDExNzg1MDh9.1i9zCNTOxskNlI1W8YVAqjSmw8q9kcCHxSrroTxVuqY`,
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzQxMTgyNTc1LCJleHAiOjE3NDExODYxNzV9.10SC9SDN5mKBPsnHEmsvJtCMEMLg3oNgy1Z7j7Pw9nE`,
                 },
             })
         } catch (error: any) {

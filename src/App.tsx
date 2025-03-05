@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Loginempresa from "./pages/loginempresa/Loginempresa";
 import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
 import Planos from "./pages/plano/Planos";
+import Clientes from "./pages/cliente/Cliente";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/login" element={<Loginempresa />} />
             <Route path="/cadastroempresa" element={<Cadastroempresa />} />
             <Route path="/planos" element={<Planos />} />
+            <Route path="/clientes" element={<Clientes/>} />
           </Routes>
         <Footer />
       </BrowserRouter>
