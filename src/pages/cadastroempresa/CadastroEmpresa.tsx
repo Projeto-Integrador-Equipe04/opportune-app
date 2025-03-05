@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Cadastroempresa.css';
 import Empresa from '../../model/Empresa';
 
+
 const Cadastroempresa = () => {
     const [empresa, setEmpresa] = useState<Empresa>({
         id: 0,
@@ -10,7 +11,7 @@ const Cadastroempresa = () => {
         email: '',
         senha: '',
         data: '',
-        plano: { id: 0, nome: '', descricao: '', status: false, preco: 0, data: new Date(), empresa: null, cliente: null }
+        plano: { id: 0, nome: '', descricao: '', status: "ABERTA", preco: 0, data: new Date(), empresa: null, cliente: null }
     });
 
     const [confirmPassword, setConfirmPassword] = useState('');
