@@ -13,13 +13,13 @@ function CadastroEmpresa() {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [confirmaSenha, setConfirmaSenha] = useState<string>('');
 
-//   const { handleRegister } = useAuth();
-    const {  handleRegister} = useContext(AuthContext);
+  //   const { handleRegister } = useAuth();
+  const { handleRegister } = useContext(AuthContext);
 
   const [empresa, setEmpresa] = useState<Empresa>({
     // id: 0,
     nome: '',
-    cnpj: '',
+    cpnj: '',
     email: '',
     senha: '',
     data: ''
@@ -54,7 +54,7 @@ function CadastroEmpresa() {
       setIsLoading(true);
 
       try {
-        await handleRegister(empresa); 
+        await handleRegister(empresa);
         ToastAlerta('Empresa cadastrada com sucesso!', 'sucesso');
       } catch (error) {
         ToastAlerta('Erro ao cadastrar a empresa!', 'erro');
@@ -90,8 +90,8 @@ function CadastroEmpresa() {
             <label>CNPJ</label>
             <input
               type="text"
-              name="cnpj"
-              value={empresa.cnpj}
+              name="cpnj"
+              value={empresa.cpnj}
               onChange={atualizarEstado}
               required
             />

@@ -1,16 +1,14 @@
-import { createContext, useState, ReactNode} from 'react';
+import { createContext, useState, ReactNode } from 'react';
 import { EmpresaLogin } from "../model/EmpresaLogin";
 import { cadastrarUsuario, login } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 
 interface AuthContextProps {
     empresaUser: EmpresaLogin;
-    token: string | null;
     handleLogout(): void;
     handleLogin(empresa: EmpresaLogin): Promise<void>;
     handleRegister(empresa: EmpresaLogin): Promise<void>;
     isLoading: boolean;
-    isAuthenticated: boolean; 
 }
 
 interface AuthProviderProps {
@@ -21,22 +19,13 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [empresaUser, setEmpresaUser] = useState<EmpresaLogin>({} as EmpresaLogin);
-    const [token, setToken] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(!!token); 
-
 
     async function handleLogin(empresaLogin: EmpresaLogin) {
         setIsLoading(true);
 
         try {
-            const response = await login(`/empresa/logar`, empresaLogin, setEmpresaUser);
-            setToken(response.data.token)
-
-
-            setToken(token);
-
-            setIsAuthenticated(true);
+            await login(`/empresa/logar`, empresaLogin, setEmpresaUser);
             ToastAlerta("Empresa autenticada com sucesso!", "sucesso");
         } catch (error) {
             console.error("Erro ao realizar login:", error);
@@ -49,10 +38,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function handleRegister(empresa: EmpresaLogin) {
         setIsLoading(true);
-    
+
         try {
             await cadastrarUsuario(`/empresa/cadastrar`, empresa, setEmpresaUser);
-            setIsAuthenticated(true); 
             ToastAlerta("Empresa registrada com sucesso!", "sucesso");
         } catch (error) {
             console.error("Erro ao realizar registro:", error);
@@ -65,14 +53,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     function handleLogout() {
         setEmpresaUser({} as EmpresaLogin);
-        setToken("");
-        // localStorage.removeItem('token');
-        setIsAuthenticated(false);
         ToastAlerta("Empresa deslogada com sucesso!", "info");
     }
 
     return (
-        <AuthContext.Provider value={{ empresaUser, token, handleLogin, handleLogout, handleRegister, isLoading, isAuthenticated }}>
+        <AuthContext.Provider value={{ empresaUser, handleLogin, handleLogout, handleRegister, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

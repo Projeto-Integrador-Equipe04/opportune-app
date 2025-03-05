@@ -3,7 +3,7 @@ import Plano from "./Plano";
 export default interface Empresa{
     id?: number,
 	nome: string,
-    cnpj:string,
+    cpnj:string,
     email: string,
     senha: string,
     data: string,

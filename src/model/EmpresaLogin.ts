@@ -6,5 +6,5 @@ export interface EmpresaLogin {
     senha: string;
     plano?: Plano;
     data?: string; 
-    cnpj?: string; 
+    cpnj?: string; 
 }
