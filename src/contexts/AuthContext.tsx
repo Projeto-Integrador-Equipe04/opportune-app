@@ -29,11 +29,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoading(true);
 
         try {
-            const response = await login(`/empresa/logar`, empresaLogin, setEmpresa);
-            setToken(response.data.token)
+             await login(`/empresa/logar`, empresaLogin, setEmpresa);
 
 
-            setToken(token);
 
             setIsAuthenticated(true);
             ToastAlerta("Empresa autenticada com sucesso!", "sucesso");
