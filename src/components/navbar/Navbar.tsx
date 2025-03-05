@@ -29,7 +29,7 @@ export default function Navbar(){
                             <img src="./public/icons/building.svg" className="w-6"/>
                             <p className="item-close">Opção 4</p>
                         </Link>
-                        <Link to={""} className="flex items-end gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
+                        <Link to={"/sobre"} className="flex items-end gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
                             <img src="./public/icons/coffee.svg" className="w-6"/>
                             <p className="item-close">Sobre</p>
                         </Link>
