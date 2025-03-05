@@ -1,110 +1,75 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { EmpresaLogin } from "../../model/EmpresaLogin";
+import { buscar } from "../../services/Service";
 
-const PerfilEmpresa = () => {
-  const [empresa, setEmpresa] = useState<{ nome: string; descricao: string; categoria: string; id: string }>({
-    nome: "",
-    descricao: "",
-    categoria: "",
-    id: "",
-  });
-  const [isLoading, setIsLoading] = useState(true);  // Estado de carregamento
-  const [error, setError] = useState<string | null>(null);  // Estado de erro
+export default function CardPerfilEmpresa() {
+  const { empresa } = useContext(AuthContext); 
+  const [empresaData, setEmpresaData] = useState<EmpresaLogin | null>(null); 
   const navigate = useNavigate();
-  const API_URL = "https://opportune-dthx.onrender.com/empresa";
 
-  useEffect(() => {
-    const fetchEmpresa = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setEmpresa(response.data);
-      } catch (error) {
-        setError("Erro ao buscar dados da empresa.");
-        console.error(error);
-      } finally {
-        setIsLoading(false);  // Fim do carregamento
-      }
-    };
-    fetchEmpresa();
-  }, []);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmpresa({ ...empresa, nome: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  async function buscarEmpresa() {
     try {
-      await axios.put(`${API_URL}/${empresa.id}`, { nome: empresa.nome });
-      alert("Nome da empresa atualizado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao atualizar o nome da empresa", error);
-      setError("Erro ao atualizar os dados da empresa.");
-    }
-  };
-
-  const handleDelete = async () => {
-    const confirm = window.confirm("Tem certeza que deseja excluir a empresa?");
-    if (confirm) {
-      try {
-        await axios.delete(`${API_URL}/${empresa.id}`);
-        alert("Empresa excluída com sucesso!");
-        navigate("/dashboard"); // Redirecionar para o dashboard
-      } catch (error) {
-        console.error("Erro ao excluir a empresa", error);
-        setError("Erro ao excluir a empresa.");
+      if (empresa?.id) {
+        await buscar(`/empresas/${empresa.id}`, setEmpresaData, {});
       }
+    } catch (error: any) {
+      alert(`Não foi possível buscar a empresa: ${empresa?.id}`);
     }
-  };
-
-  if (isLoading) {
-    return <div>Carregando...</div>;
   }
 
+  useEffect(() => {
+    if (empresa?.id) {
+      buscarEmpresa();
+    }
+  }, [empresa?.id]);
+
+  useEffect(() => {
+    if (!empresa?.id) {
+      alert("Você precisa estar logado!");
+      navigate("/");
+    }
+  }, [empresa, navigate]);
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <button
-        onClick={() => navigate("/dashboard")}
-        className="absolute top-4 left-4 bg-[#006056] text-white py-2 px-4 rounded-md hover:bg-teal-700 transition"
-      >
-        Voltar
-      </button>
-
-      <div className="bg-white p-6 rounded-md shadow-md w-96 mt-16">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Perfil da Empresa</h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>} 
-
-        <div className="mb-4">
-          <p><strong>Nome:</strong> {empresa.nome}</p>
-          <p><strong>Descrição:</strong> {empresa.descricao}</p>
-          <p><strong>Categoria:</strong> {empresa.categoria}</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="nome"
-            placeholder="Nome da Empresa"
-            value={empresa.nome}
-            onChange={handleChange}
-            className="border p-2 rounded-md"
-            required
-          />
-          <button type="submit" className="bg-[#006056] text-white py-2 rounded-md hover:bg-teal-700 transition">
-            Atualizar Nome
-          </button>
-        </form>
-
-        <button
-          onClick={handleDelete}
-          className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 transition"
-        >
-          Excluir Empresa
-        </button>
+    <>
+      <div className="flex  h-screen w-screen justify-center">
+        {!empresaData && (
+          <div className="text-center py-4 text-xl">Carregando dados da empresa...</div>
+        )}
       </div>
-    </div>
-  );
-};
+      <div className="flex justify-center w-full h-full">
+        <div className="flex flex-col rounded-xl shadow-lg overflow-hidden justify-between w-2/6 my-10">
+          <header className="py-8 px-6 text-black text-3xl text-center">Perfil da Empresa</header>
+          {empresaData ? (
+            <>
+              <p className="py-4 text-xl text-center h-full">Nome: {empresaData.nome}</p>
+              <p className="py-4 text-xl text-center h-full">CNPJ: {empresaData.cnpj}</p>
+              <p className="py-4 text-xl text-center h-full">Email: {empresaData.email}</p>
+              <p className="py-4 text-xl text-center h-full">Data de Criação: {empresaData.data}</p>
+              <p className="py-4 text-xl text-center h-full">Plano: {empresaData.plano}</p>
+            </>
+          ) : (
+            <p className="py-4 text-xl text-center">Carregando dados da empresa...</p>
+          )}
+          <div className="flex">
+            <Link
+              to={`/editarperfil/${empresaData?.id}`}
+              className="w-full text-white bg-black hover:underline flex items-center justify-center py-2"
+            >
+              <button>Editar</button>
+            </Link>
 
-export default PerfilEmpresa;
+            <Link
+              to={`/deletarperfil/${empresaData?.id}`}
+              className="text-black border bg-slate-50 hover:border-red-500 hover:bg-red-500 hover:text-white hover:underline w-full flex items-center justify-center"
+            >
+              <button>Deletar</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
