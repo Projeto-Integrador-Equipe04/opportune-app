@@ -1,14 +1,48 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import './Loginempresa.css';
+import { EmpresaLogin } from "../../model/EmpresaLogin";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import { useNavigate} from 'react-router-dom';
 
 const Loginempresa = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isHovered, setIsHovered] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const { handleLogin } = useAuth();
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Login realizado com:', email, password);
+
+        if (!email || !password) {
+            ToastAlerta("Preencha todos os campos!", "erro");
+            return;
+        }
+
+        const empresaLogin: EmpresaLogin = {
+            email,
+            senha: password,
+        };
+
+        
+        console.log("Dados enviados:", empresaLogin);
+        setIsSubmitting(true);
+        
+        try {
+            await handleLogin(empresaLogin);
+            console.log('Login realizado com sucesso!');
+            navigate('/home');
+
+        } catch (error) {
+            console.error('Erro ao realizar login:', error);
+            ToastAlerta("Email ou senha incorretos!", "erro");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -39,6 +73,7 @@ const Loginempresa = () => {
                     </div>
                     <button
                         type="submit"
+                        disabled={isSubmitting}
                         style={{
                             width: '100%',
                             padding: '12px',
@@ -53,7 +88,7 @@ const Loginempresa = () => {
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
-                        Login
+                        {isSubmitting ? 'Carregando...' : 'Login'}
                     </button>
                 </form>
                 <p>

@@ -3,6 +3,7 @@ import './Cadastroempresa.css';
 import Empresa from '../../model/Empresa';
 import { StatusPlano } from '../../types/PlanoTypes';
 
+
 const Cadastroempresa = () => {
     const [empresa, setEmpresa] = useState<Empresa>({
         id: 0,
@@ -11,7 +12,11 @@ const Cadastroempresa = () => {
         email: '',
         senha: '',
         data: '',
+<<<<<<< HEAD
         plano: { id: 0, nome: '', descricao: '',  status: StatusPlano.ABERTA, preco: 0, data: new Date(), empresa: null, cliente: null }
+=======
+        plano: { id: 0, nome: '', descricao: '', status: "ABERTA", preco: 0, data: new Date(), empresa: null, cliente: null }
+>>>>>>> 9fd71856444790cc7c39aa2eae95d47c9b270e84
     });
 
     const [confirmPassword, setConfirmPassword] = useState('');

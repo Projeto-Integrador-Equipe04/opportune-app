@@ -1,20 +1,21 @@
-import {  Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import Navbar from "./components/navbar/Navbar";
+import { Home } from "lucide-react";
 import CadastroCliente from "./components/cadastroCliente/CadastroCliente";
-import CadastroPlano from "./components/cadastroPlano/CadastroPlano";
-import './App.css'
-import Navbar from './components/navbar/Navbar'
-import Footer from './components/footer/Footer'
-import Home from './components/home/Home'
 import Dashboard from "./pages/dashboard/Dashboard";
+import CadastroPlano from "./components/cadastroPlano/CadastroPlano";
 import Loginempresa from "./pages/loginempresa/Loginempresa";
 import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
 import Sobre from "./pages/sobre/Sobre";
+import Footer from "./components/footer/Footer";
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <AuthProvider> 
+          <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
@@ -26,9 +27,7 @@ export default function App() {
             <Route path="/sobre" element={<Sobre />} />
             </Routes>
         <Footer  />
+        </AuthProvider>
       </BrowserRouter>
     </>
-  )
-
-}
-
+  );}
