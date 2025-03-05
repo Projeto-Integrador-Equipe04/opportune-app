@@ -10,7 +10,8 @@ import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
 import Sobre from "./pages/sobre/Sobre";
 import PerfilEmpresa from "./pages/perfil/PerfilEmpresa";
 import Footer from "./components/footer/Footer";
-import CardPerfilEmpresa from "./pages/perfil/CardPerfil";
+import Planos from "./pages/plano/Planos";
+import Clientes from "./pages/cliente/Cliente";
 
 export default function App() {
   return (
@@ -28,7 +29,8 @@ export default function App() {
             <Route path="/cadastroempresa" element={<Cadastroempresa />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perfil-empresa" element={<PerfilEmpresa />} />
-
+            <Route path="/planos" element={<Planos />} />
+            <Route path="/clientes" element={<Clientes />} />
             </Routes>
         <Footer  />
         </AuthProvider>
