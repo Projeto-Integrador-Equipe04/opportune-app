@@ -3,9 +3,10 @@ import { EmpresaLogin } from "../model/EmpresaLogin";
 
 
 const api = axios.create({
-    baseURL: 'https://opportune-dthx.onrender.com/',
+    baseURL: 'https://opportune-dthx.onrender.com',
 });
 
+export default api;
 
 export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
     const resposta = await api.post(url, dados);

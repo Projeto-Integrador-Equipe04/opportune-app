@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useContext, useState } from 'react';
+
 import './Loginempresa.css';
 import { EmpresaLogin } from "../../model/EmpresaLogin";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { useNavigate} from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Loginempresa = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +12,8 @@ const Loginempresa = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { handleLogin } = useAuth();
+    //   const { handleRegister } = useAuth();
+        const {  handleLogin} = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ const Loginempresa = () => {
         try {
             await handleLogin(empresaLogin);
             console.log('Login realizado com sucesso!');
-            navigate('/home');
+            navigate('/dashboard');
 
         } catch (error) {
             console.error('Erro ao realizar login:', error);

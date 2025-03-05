@@ -1,13 +1,14 @@
-import { createContext, useContext, useState, ReactNode} from 'react';
+import { createContext, useState, ReactNode} from 'react';
 import { EmpresaLogin } from "../model/EmpresaLogin";
-import { login } from "../services/Service";
+import { cadastrarUsuario, login } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 
 interface AuthContextProps {
-    empresa: EmpresaLogin | null;
+    empresaUser: EmpresaLogin;
     token: string | null;
     handleLogout(): void;
     handleLogin(empresa: EmpresaLogin): Promise<void>;
+    handleRegister(empresa: EmpresaLogin): Promise<void>;
     isLoading: boolean;
     isAuthenticated: boolean; 
 }
@@ -19,7 +20,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [empresa, setEmpresa] = useState<EmpresaLogin | null>(null);
+    const [empresaUser, setEmpresaUser] = useState<EmpresaLogin>({} as EmpresaLogin);
     const [token, setToken] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(!!token); 
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoading(true);
 
         try {
-            const response = await login(`/empresa/logar`, empresaLogin, setEmpresa);
+            const response = await login(`/empresa/logar`, empresaLogin, setEmpresaUser);
             setToken(response.data.token)
 
 
@@ -46,26 +47,43 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    async function handleRegister(empresa: EmpresaLogin) {
+        setIsLoading(true);
+    
+        try {
+            await cadastrarUsuario(`/empresa/cadastrar`, empresa, setEmpresaUser);
+            setIsAuthenticated(true); 
+            ToastAlerta("Empresa registrada com sucesso!", "sucesso");
+        } catch (error) {
+            console.error("Erro ao realizar registro:", error);
+            ToastAlerta("Erro ao registrar empresa!", "erro");
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     function handleLogout() {
-        setEmpresa(null);
+        setEmpresaUser({} as EmpresaLogin);
         setToken("");
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
         setIsAuthenticated(false);
         ToastAlerta("Empresa deslogada com sucesso!", "info");
     }
 
     return (
-        <AuthContext.Provider value={{ empresa, token, handleLogin, handleLogout, isLoading, isAuthenticated }}>
+        <AuthContext.Provider value={{ empresaUser, token, handleLogin, handleLogout, handleRegister, isLoading, isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export function useAuth() {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-}
+
+
+// export function useAuth() {
+//     const context = useContext(AuthContext);
+//     if (!context) {
+//         throw new Error('useAuth must be used within an AuthProvider');
+//     }
+//     return context;
+// }
