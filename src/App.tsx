@@ -12,7 +12,6 @@ import Clientes from "./pages/cliente/Cliente";
 import Footer from "./components/footer/Footer";
 import CardPerfilEmpresa from "./pages/perfil/CardPerfil";
 
-
 export default function App() {
   return (
     <>
