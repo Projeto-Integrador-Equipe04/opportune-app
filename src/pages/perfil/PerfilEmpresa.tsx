@@ -54,7 +54,7 @@ export default function CardPerfilEmpresa() {
 
   return (
     <>
-  <div className="flex justify-center w-full pt-10"> {/* Adicionando padding-top */}
+  <div className="flex justify-center w-full pt-10"> 
   {!empresaData && (
           <div className="text-center py-4 text-xl">Carregando dados da empresa...</div>
         )}
