@@ -27,7 +27,7 @@ const Loginempresa = () => {
 
         const empresaLogin: EmpresaLogin = {
             email,
-            senha: password,
+            senha: password
         };
 
         
