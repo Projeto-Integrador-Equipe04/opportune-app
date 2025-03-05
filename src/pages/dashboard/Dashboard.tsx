@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import imgHello from "../../assets/imgs/imgHello.png";
+import SecaoPlanos from "../../components/secao-planos/SecaoPlanos";
 
 const Dashboard = () => {
   const [usuario] = useState("Usuário");
   const navigate = useNavigate(); 
 
   return (
-    <div className="flex w-screen h-screen bg-gray-100">
+    <div className="flex w-screen h-screen bg-gray-100 pl-8">
       <aside className="w-20 h-screen bg-[#006056] flex flex-col justify-between p-4">
         <div className="flex flex-col gap-4">
           <button
@@ -46,14 +47,7 @@ const Dashboard = () => {
             <div className="mt-2 bg-gray-300 h-25 rounded-md shadow-md"></div>
           </section>
 
-          <section className="mt-6">
-            <h2 className="text-lg font-semibold mb-2 font-serif">Planos Ativos</h2>
-            <div className="flex gap-6">
-              <div className="bg-gray-400 h-40 flex-1 rounded-md shadow-md"></div>
-              <div className="bg-gray-400 h-40 flex-1 rounded-md shadow-md"></div>
-              <div className="bg-gray-400 h-40 flex-1 rounded-md shadow-md"></div>
-            </div>
-          </section>
+          <SecaoPlanos />
         </div>
       </main>
     </div>

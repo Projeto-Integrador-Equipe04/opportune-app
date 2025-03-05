@@ -7,10 +7,8 @@ export default interface Plano{
 	nome: string,
 	descricao: string,
     status: StatusPlano,
-    preco: number,
+    valor: number,
     data: Date,
-    empresa: Empresa [] | null ,
-    cliente: Cliente [] | null,
-
-
+    empresa: Empresa | null ,
+    cliente: Cliente | null,
 }

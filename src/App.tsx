@@ -8,6 +8,7 @@ import Home from './components/home/Home'
 import Dashboard from "./pages/dashboard/Dashboard";
 import Loginempresa from "./pages/loginempresa/Loginempresa";
 import Cadastroempresa from "./pages/cadastroempresa/CadastroEmpresa";
+import Planos from "./pages/plano/Planos";
 
 export default function App() {
   return (
@@ -22,7 +23,8 @@ export default function App() {
             <Route path="/cadastro-plano" element={<CadastroPlano />} />
             <Route path="/login" element={<Loginempresa />} />
             <Route path="/cadastroempresa" element={<Cadastroempresa />} />
-            </Routes>
+            <Route path="/planos" element={<Planos />} />
+          </Routes>
         <Footer />
       </BrowserRouter>
     </>
