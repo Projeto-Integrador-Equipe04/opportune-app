@@ -35,7 +35,7 @@ const Loginempresa = () => {
         try {
             await handleLogin(empresaLogin);
             console.log('Login realizado com sucesso!');
-            navigate('/home');
+            navigate('/dashboard');
 
         } catch (error) {
             console.error('Erro ao realizar login:', error);

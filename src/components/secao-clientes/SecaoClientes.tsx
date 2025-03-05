@@ -1,21 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { buscar } from "../../services/Service";
 import Cliente from "../../model/Cliente";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SecaoClientes(){
+
+    const navigate = useNavigate();
     const [clientes, setCliente] = useState<Cliente[]>([])
+
+    const { empresa, handleLogout } = useContext(AuthContext)
+    const token = empresa?.token;
 
     async function buscarClientes() {
         try {
-            await buscar('/cliente', setCliente, {
+            await buscar('/clientes', setCliente, {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzQxMTgyNTc1LCJleHAiOjE3NDExODYxNzV9.10SC9SDN5mKBPsnHEmsvJtCMEMLg3oNgy1Z7j7Pw9nE`,
+                    Authorization: token
                 },
             })
         } catch (error: any) {
-            //
+            if (error.toString().includes('403')) {
+                handleLogout()
+            }
         }
     }
+
+    useEffect(() => {
+        if (token === '') {
+            console.error("Você precisa estar logado");
+
+            navigate('/');
+        }
+    }, [token])
 
     useEffect(() => {
         buscarClientes()
