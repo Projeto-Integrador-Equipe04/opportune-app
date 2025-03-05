@@ -8,9 +8,9 @@ export default function Navbar(){
         <>
             <nav className="fixed z-[9999] inset-y-0 left-0 bg-[#EEF6F5] nav">
                 <div className="h-full flex flex-col justify-between items-center py-8 px-3">
-                    <Link to={""} className="flex items-center gap-1">
-                        <img src="./public/icons/eye.svg" className="w-8"/>
-                        <h1 className="text-xl item-close">Opportune</h1>
+                    <Link to={""} className="flex items-end">
+                        <img src="./public/icons/eye.svg" className="w-7"/>
+                        <h1 className="text-2xl item-close">pportune</h1>
                     </Link>
                     <div className="flex flex-col gap-6">
                         <Link to={""} className="flex items-end gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
@@ -34,7 +34,7 @@ export default function Navbar(){
                             <p className="item-close">Sobre</p>
                         </Link>
                     </div>
-                    <Link to={""} className="flex items-center gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
+                    <Link to={""} className="flex items-center gap-1 py-4 px-8 hover:bg-[#99B8BA] hover:rounded-lg">
                         <img src="./public/icons/exit.svg" className="w-6"/>
                         <p className="item-close">Sair</p>
                     </Link>

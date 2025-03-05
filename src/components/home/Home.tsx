@@ -17,7 +17,7 @@ export default function Home(){
                         <Link to="/login" className="font-semibold text-2xl w-80 h-15 bg-[#006056] text-white rounded-xl text-center content-center">
                             Login
                         </Link>
-                        <Link to="/cadastro" className="font-semibold text-2xl w-80 h-15 bg-[#878787] text-white rounded-xl text-center content-center">
+                        <Link to="/cadastroempresa" className="font-semibold text-2xl w-80 h-15 bg-[#878787] text-white rounded-xl text-center content-center">
                             Cadastrar
                         </Link>
                     </div>
