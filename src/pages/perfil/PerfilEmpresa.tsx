@@ -59,7 +59,7 @@ export default function CardPerfilEmpresa() {
           <div className="text-center py-4 text-xl">Carregando dados da empresa...</div>
         )}
       </div>
-      <div className="flex justify-center w-full h-full pb-[217px]">
+      <div className="flex justify-center w-full h-full pb-[183px]">
         <div className="flex flex-col rounded-xl shadow-lg overflow-hidden justify-between w-2/6 my-10">
           <header className="py-8 px-6 text-black text-3xl text-center">Perfil da Empresa</header>
           {empresaData ? (
