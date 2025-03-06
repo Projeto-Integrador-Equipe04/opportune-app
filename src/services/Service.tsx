@@ -1,29 +1,17 @@
 import axios from "axios";
-import { EmpresaLogin } from "../model/EmpresaLogin";
-
 
 const api = axios.create({
     baseURL: 'https://opportune-dthx.onrender.com'
 })
-
 
 export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
     const resposta = await api.post(url, dados);
     setDados(resposta.data);
 };
 
-export const login = async (url: string, dados: EmpresaLogin, setDados: Function) => {
-    try {
-        const resposta = await api.post(url, dados);
-        setDados(resposta.data);
-
-        console.log('Cabeçalhos da resposta:', resposta.headers);
-
-        return resposta;
-    } catch (error) {
-        console.error("Erro ao realizar login:", error);
-        throw error;
-    }
+export const login = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.post(url, dados);
+    setDados(resposta.data);
 };
 
 export const buscar = async (url: string, setDados: Function, header: Object) => {

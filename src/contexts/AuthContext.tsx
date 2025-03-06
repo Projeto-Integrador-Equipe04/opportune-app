@@ -2,6 +2,7 @@ import { createContext, useContext, useState, ReactNode} from 'react';
 import { EmpresaLogin } from "../model/EmpresaLogin";
 import { login } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
     empresa: EmpresaLogin | null;
@@ -19,21 +20,17 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
+    const navigate = useNavigate();
     const [empresa, setEmpresa] = useState<EmpresaLogin | null>(null);
     const [token, setToken] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(!!token); 
-
-
+    const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+    
     async function handleLogin(empresaLogin: EmpresaLogin) {
         setIsLoading(true);
 
         try {
-            const response = await login(`/empresa/logar`, empresaLogin, setEmpresa);
-            setToken(response.data.token)
-
-
-            setToken(token);
+             await login(`/empresa/logar`, empresaLogin, setEmpresa);
 
             setIsAuthenticated(true);
             ToastAlerta("Empresa autenticada com sucesso!", "sucesso");
@@ -53,6 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         localStorage.removeItem('token');
         setIsAuthenticated(false);
         ToastAlerta("Empresa deslogada com sucesso!", "info");
+        navigate('/login')
     }
 
     return (

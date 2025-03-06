@@ -1,21 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { buscar } from "../../services/Service";
 import Cliente from "../../model/Cliente";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SecaoClientes(){
+
+    const navigate = useNavigate();
     const [clientes, setCliente] = useState<Cliente[]>([])
+    const [isLoading, setIsLoading] = useState<boolean | null>(null)
+
+    const { empresa, handleLogout } = useContext(AuthContext)
+    const token = empresa?.token;
 
     async function buscarClientes() {
         try {
+            setIsLoading(true)
             await buscar('/cliente', setCliente, {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzQxMTgyNTc1LCJleHAiOjE3NDExODYxNzV9.10SC9SDN5mKBPsnHEmsvJtCMEMLg3oNgy1Z7j7Pw9nE`,
+                    Authorization: token
                 },
             })
         } catch (error: any) {
-            //
+            if (error.toString().includes('403')) {
+                handleLogout()
+            }
+        } finally {
+            setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        if (token === '') {
+            console.error("Você precisa estar logado");
+
+            navigate('/');
+        }
+    }, [token])
 
     useEffect(() => {
         buscarClientes()
@@ -25,7 +46,8 @@ export default function SecaoClientes(){
         <section className="flex flex-col">
             <h2 className="text-xl font-semibold my-4">Clientes</h2>
             
-            {clientes.length == 0 && <p>Carregando...</p>}
+            {isLoading && <p>Carregando...</p>}
+            {isLoading == false && clientes.length == 0 && <p>Nenhum cliente cadastrado.</p>}
 
             <div className="flex gap-5">
                 {clientes.map(cliente => 
