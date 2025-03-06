@@ -8,13 +8,15 @@ export default function SecaoClientes(){
 
     const navigate = useNavigate();
     const [clientes, setCliente] = useState<Cliente[]>([])
+    const [isLoading, setIsLoading] = useState<boolean | null>(null)
 
     const { empresa, handleLogout } = useContext(AuthContext)
     const token = empresa?.token;
 
     async function buscarClientes() {
         try {
-            await buscar('/clientes', setCliente, {
+            setIsLoading(true)
+            await buscar('/cliente', setCliente, {
                 headers: {
                     Authorization: token
                 },
@@ -23,6 +25,8 @@ export default function SecaoClientes(){
             if (error.toString().includes('403')) {
                 handleLogout()
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -42,7 +46,8 @@ export default function SecaoClientes(){
         <section className="flex flex-col">
             <h2 className="text-xl font-semibold my-4">Clientes</h2>
             
-            {clientes.length == 0 && <p>Carregando...</p>}
+            {isLoading && <p>Carregando...</p>}
+            {isLoading == false && clientes.length == 0 && <p>Nenhum cliente cadastrado.</p>}
 
             <div className="flex gap-5">
                 {clientes.map(cliente => 

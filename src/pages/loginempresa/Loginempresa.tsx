@@ -50,10 +50,11 @@ const Loginempresa = () => {
     return (
         <div className="login-page">
             <div className="login-container">
-                <h2 style={{ marginBottom: '20px', color: '#023d37', fontSize: '30px', fontWeight: 'bold' }}>
-                    Welcome back!
-                </h2>
-                <p>Please login to your account</p>
+                <h1 style={{ marginBottom: '20px', color: '#023d37', fontSize: '30px', fontWeight: 'bold' }}>
+                    Opportune CRM
+                </h1>
+                <p>Olá, visitante! 👋</p>
+                <p><b>Faça login para continuar</b></p>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email</label>
@@ -65,7 +66,7 @@ const Loginempresa = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>Senha</label>
                         <input
                             type="password"
                             value={password}
