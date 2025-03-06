@@ -1,28 +1,28 @@
-import { useState, useEffect, ChangeEvent, FormEvent, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { RotatingLines } from 'react-loader-spinner';
-import Empresa from '../../model/Empresa';
-import './Cadastroempresa.css';
-import { ToastAlerta } from '../../utils/ToastAlerta';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useState, useEffect, ChangeEvent, FormEvent, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
+import Empresa from "../../model/Empresa";
+import "./Cadastroempresa.css";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function CadastroEmpresa() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [confirmaSenha, setConfirmaSenha] = useState<string>('');
+  const [confirmaSenha, setConfirmaSenha] = useState<string>("");
 
   //   const { handleRegister } = useAuth();
   const { handleRegister } = useContext(AuthContext);
 
   const [empresa, setEmpresa] = useState<Empresa>({
     // id: 0,
-    nome: '',
-    cpnj: '',
-    email: '',
-    senha: '',
-    data: ''
+    nome: "",
+    cpnj: "",
+    email: "",
+    senha: "",
+    data: "",
     // plano: { id: 0, nome: '', descricao: '', status: '', valor: 0, data: new Date(), empresa: [], cliente: [] },
   });
 
@@ -33,7 +33,7 @@ function CadastroEmpresa() {
   }, [empresa]);
 
   function retornar() {
-    navigate('/login');
+    navigate("/login");
   }
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
@@ -55,27 +55,39 @@ function CadastroEmpresa() {
 
       try {
         await handleRegister(empresa);
-        ToastAlerta('Empresa cadastrada com sucesso!', 'sucesso');
+        ToastAlerta("Empresa cadastrada com sucesso!", "sucesso");
+        alert("Empresa cadastrada com sucesso!");
+        navigate("/login");
       } catch (error) {
-        ToastAlerta('Erro ao cadastrar a empresa!', 'erro');
+        ToastAlerta("Erro ao cadastrar a empresa!", "erro");
       }
     } else {
-      ToastAlerta('Dados estão inconsistentes. Verifique as informações do cadastro', 'erro');
-      setEmpresa({ ...empresa, senha: '' });
-      setConfirmaSenha('');
+      ToastAlerta(
+        "Dados estão inconsistentes. Verifique as informações do cadastro",
+        "erro"
+      );
+      setEmpresa({ ...empresa, senha: "" });
+      setConfirmaSenha("");
     }
 
     setIsLoading(false);
   }
 
-  console.log(empresa)
-
   return (
     <div className="container">
       <div className="fundo"></div>
       <div className="cadastro-container">
-        <h2 style={{ marginBottom: '20px', color: '#023d37', fontSize: '30px', fontWeight: 'bold' }}>Cadastrar Empresa</h2>
-        <form onSubmit={cadastrarNovaEmpresa}>
+        <h2
+          style={{
+            marginBottom: "20px",
+            color: "#023d37",
+            fontSize: "30px",
+            fontWeight: "bold",
+          }}
+        >
+          Cadastrar Empresa
+        </h2>
+        <form onSubmit={(e) => cadastrarNovaEmpresa(e)}>
           <div className="form-group">
             <label>Nome da Empresa</label>
             <input
@@ -144,16 +156,16 @@ function CadastroEmpresa() {
             type="submit"
             disabled={isLoading}
             style={{
-              width: '100%',
-              padding: '12px',
-              backgroundColor: isHovered ? '#0fa89a' : '#15cebb',
-              color: '#fff',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s ease',
+              width: "100%",
+              padding: "12px",
+              backgroundColor: isHovered ? "#0fa89a" : "#15cebb",
+              color: "#fff",
+              fontSize: "16px",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "background-color 0.3s ease",
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
