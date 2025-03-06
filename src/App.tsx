@@ -27,6 +27,9 @@ export default function App() {
             <Route path="/cadastroempresa" element={<Cadastroempresa />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perfil-empresa" element={<PerfilEmpresa />} />
+            <Route path="/editar-perfil/:id" element={<PerfilEmpresa />} />
+            <Route path="/deletar-perfil/:id" element={<PerfilEmpresa />} />
+
 
             </Routes>
         <Footer  />

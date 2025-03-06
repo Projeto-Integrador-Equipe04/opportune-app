@@ -54,7 +54,7 @@ export default function CardPerfilEmpresa() {
 
   return (
     <>
-  <div className="flex justify-center w-full pt-10"> {/* Adicionando padding-top */}
+  <div className="flex justify-center w-full pt-10">
   {!empresaData && (
           <div className="text-center py-4 text-xl">Carregando dados da empresa...</div>
         )}
@@ -75,14 +75,14 @@ export default function CardPerfilEmpresa() {
           )}
           <div className="flex">
             <Link
-              to={`/editarperfil/${empresaData?.id}`}
+              to={`/editar-perfil/${empresaData?.id}`}
               className="w-full text-white bg-black hover:underline flex items-center justify-center py-2"
             >
               <button>Editar</button>
             </Link>
 
             <Link
-              to={`/deletarperfil/${empresaData?.id}`}
+              to={`/deletar-perfil/${empresaData?.id}`}
               className="text-black border bg-slate-50 hover:border-red-500 hover:bg-red-500 hover:text-white hover:underline w-full flex items-center justify-center"
             >
               <button>Deletar</button>
