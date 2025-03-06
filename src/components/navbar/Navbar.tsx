@@ -13,7 +13,7 @@ export default function Navbar(){
                         <h1 className="text-2xl item-close">pportune</h1>
                     </Link>
                     <div className="flex flex-col gap-6">
-                        <Link to={""} className="flex items-end gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
+                        <Link to={"/clientes"} className="flex items-end gap-1 p-4 hover:bg-[#99B8BA] hover:rounded-lg">
                             <img src="./public/icons/person2.svg" className="w-7"/>
                             <p className="item-close">Clientes</p>
                         </Link>
