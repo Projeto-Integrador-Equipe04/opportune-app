@@ -1,5 +1,12 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+
 export default function Footer(){
-    
+    const { empresa } = useContext(AuthContext)
+    const token = empresa?.token;
+
+    if (!token) return <></>
+
     const data = new Date().getFullYear();
     
     return(

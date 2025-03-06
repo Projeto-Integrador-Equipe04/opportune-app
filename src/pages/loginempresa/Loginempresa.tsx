@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useContext, useState } from 'react';
+
 import './Loginempresa.css';
 import { EmpresaLogin } from "../../model/EmpresaLogin";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 import { useNavigate} from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Loginempresa = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +12,8 @@ const Loginempresa = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { handleLogin } = useAuth();
+    //   const { handleRegister } = useAuth();
+        const {  handleLogin} = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Loginempresa = () => {
 
         const empresaLogin: EmpresaLogin = {
             email,
-            senha: password,
+            senha: password
         };
 
         
@@ -35,7 +37,7 @@ const Loginempresa = () => {
         try {
             await handleLogin(empresaLogin);
             console.log('Login realizado com sucesso!');
-            navigate('/home');
+            navigate('/dashboard');
 
         } catch (error) {
             console.error('Erro ao realizar login:', error);
@@ -48,10 +50,11 @@ const Loginempresa = () => {
     return (
         <div className="login-page">
             <div className="login-container">
-                <h2 style={{ marginBottom: '20px', color: '#023d37', fontSize: '30px', fontWeight: 'bold' }}>
-                    Welcome back!
-                </h2>
-                <p>Please login to your account</p>
+                <h1 style={{ marginBottom: '20px', color: '#023d37', fontSize: '30px', fontWeight: 'bold' }}>
+                    Opportune CRM
+                </h1>
+                <p>Olá, visitante! 👋</p>
+                <p><b>Faça login para continuar</b></p>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email</label>
@@ -63,7 +66,7 @@ const Loginempresa = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>Senha</label>
                         <input
                             type="password"
                             value={password}

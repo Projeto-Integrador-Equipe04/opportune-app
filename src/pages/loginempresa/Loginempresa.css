@@ -15,7 +15,7 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url("img/fundo_oportune.png");
+    background-image: url("public/image/fundooportune.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

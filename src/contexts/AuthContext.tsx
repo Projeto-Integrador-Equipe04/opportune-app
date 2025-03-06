@@ -1,69 +1,95 @@
-import { createContext, useContext, useState, ReactNode} from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 import { EmpresaLogin } from "../model/EmpresaLogin";
-import { login } from "../services/Service";
+import { cadastrarUsuario, login } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextProps {
-    empresa: EmpresaLogin | null;
-    token: string | null;
-    handleLogout(): void;
-    handleLogin(empresa: EmpresaLogin): Promise<void>;
-    isLoading: boolean;
-    isAuthenticated: boolean; 
+  empresa: EmpresaLogin | null;
+  token: string | null;
+  handleLogout(): void;
+  handleLogin(empresa: EmpresaLogin): Promise<void>;
+  handleRegister(empresa: EmpresaLogin): Promise<void>;
+  isLoading: boolean;
+  isAuthenticated: boolean;
 }
 
 interface AuthProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [empresa, setEmpresa] = useState<EmpresaLogin | null>(null);
-    const [token, setToken] = useState<string>("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(!!token); 
+  const navigate = useNavigate();
+  const [empresa, setEmpresa] = useState<EmpresaLogin | null>(null);
+  const [token, setToken] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
+  async function handleLogin(empresaLogin: EmpresaLogin) {
+    setIsLoading(true);
 
-    async function handleLogin(empresaLogin: EmpresaLogin) {
-        setIsLoading(true);
+    try {
+      await login(`/empresa/logar`, empresaLogin, setEmpresa);
 
-        try {
-             await login(`/empresa/logar`, empresaLogin, setEmpresa);
-
-
-
-            setIsAuthenticated(true);
-            ToastAlerta("Empresa autenticada com sucesso!", "sucesso");
-        } catch (error) {
-            console.error("Erro ao realizar login:", error);
-            ToastAlerta("Dados da empresa inconsistentes!", "erro");
-            throw error;
-        } finally {
-            setIsLoading(false);
-        }
+      setIsAuthenticated(true);
+      ToastAlerta("Empresa autenticada com sucesso!", "sucesso");
+    } catch (error) {
+      console.error("Erro ao realizar login:", error);
+      ToastAlerta("Dados da empresa inconsistentes!", "erro");
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
+  }
 
+  async function handleRegister(empresa: EmpresaLogin) {
+    setIsLoading(true);
 
-    function handleLogout() {
-        setEmpresa(null);
-        setToken("");
-        localStorage.removeItem('token');
-        setIsAuthenticated(false);
-        ToastAlerta("Empresa deslogada com sucesso!", "info");
+    try {
+      await cadastrarUsuario(`/empresa/cadastrar`, empresa, setEmpresa);
+      setIsAuthenticated(true);
+      ToastAlerta("Empresa registrada com sucesso!", "sucesso");
+    } catch (error) {
+      console.error("Erro ao realizar registro:", error);
+      ToastAlerta("Erro ao registrar empresa!", "erro");
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    return (
-        <AuthContext.Provider value={{ empresa, token, handleLogin, handleLogout, isLoading, isAuthenticated }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  function handleLogout() {
+    setEmpresa(null);
+    setToken("");
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    ToastAlerta("Empresa deslogada com sucesso!", "info");
+    navigate("/login");
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        empresa,
+        token,
+        handleLogin,
+        handleLogout,
+        handleRegister,
+        isLoading,
+        isAuthenticated,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 }
