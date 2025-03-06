@@ -68,7 +68,7 @@ export default function CardPerfilEmpresa() {
               <p className="py-4 text-xl text-center h-full">CNPJ: {empresaData.cnpj}</p>
               <p className="py-4 text-xl text-center h-full">Email: {empresaData.email}</p>
               <p className="py-4 text-xl text-center h-full">Data de Criação: {empresaData.data}</p>
-              <p className="py-4 text-xl text-center h-full">Plano: {empresaData.plano}</p>
+              <p className="py-4 text-xl text-center h-full">Plano: {empresaData.plano.nome}</p>
             </>
           ) : (
             <p className="py-4 text-xl text-center">Carregando dados da empresa...</p>
